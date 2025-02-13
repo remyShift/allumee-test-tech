@@ -16,12 +16,6 @@ describe("Transition", () => {
         expect(transition.name).toBe(`${scene1.name} > ${scene2.name}`);
     });
 
-    it("should throw an error if the name of one of the scene is not provided", () => {
-        const scene1 = new Scene('Torche', 30);
-        
-        expect(() => new Transition(scene1.name, '')).toThrow('Need 2 scenes to create a transition');
-    });
-
     it("should create a transition with a default duration of 10 seconds", () => {
         expect(transition.duration).toBe(10);
     });

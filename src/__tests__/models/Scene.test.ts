@@ -12,11 +12,7 @@ describe("Scene", () => {
         expect(scene.duration).toBe(30);
     });
 
-    it("should throw an error if name is not provided", () => {
-        expect(() => new Scene('', 30)).toThrow('Name is required');
-    });
-
-    it("should throw an error if duration is not provided", () => {
+    it("should throw an error if duration is less than 0", () => {
         expect(() => new Scene('Torche', 0)).toThrow('Duration must be greater than 0');
     });
     

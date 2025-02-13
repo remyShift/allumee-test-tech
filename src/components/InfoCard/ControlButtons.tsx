@@ -3,6 +3,17 @@
 import { useShow } from '@/context/show';
 import Show from '@/models/Show';
 import Scene from '@/models/Scene';
+import Transition from '@/models/Transition';
+
+interface SceneData {
+    name: string;
+    duration: number;
+}
+
+interface TransitionData {
+    name: string;
+    duration: number;
+}
 
 export default function ControlButtons() {
     const { show, setShow } = useShow();
@@ -17,9 +28,24 @@ export default function ControlButtons() {
             .then(data => {
                 const newShow = new Show();
                 
-                data.scenes.forEach((sceneData: any) => {
+                newShow.scenes = [];
+                newShow.transitions = [];
+                newShow.scenography = [];
+                newShow.duration = 0;
+                
+                data.scenes.forEach((sceneData: SceneData) => {
                     const scene = new Scene(sceneData.name, sceneData.duration);
-                    newShow.addScene(scene);
+                    newShow.scenes.push(scene);
+                    newShow.scenography.push(scene);
+                    newShow.duration += scene.duration;
+                });
+                
+                data.transitions.forEach((transitionData: TransitionData, index: number) => {
+                    const transition = new Transition(transitionData.name.toString(), transitionData.duration.toString());
+                    newShow.transitions.push(transition);
+                    const position = (index * 2) + 1;
+                    newShow.scenography.splice(position, 0, transition);
+                    newShow.duration += transition.duration;
                 });
                 
                 setShow(newShow);
