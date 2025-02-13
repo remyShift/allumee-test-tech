@@ -59,4 +59,15 @@ describe("Show", () => {
 
         expect(show.getTransitionsDuration()).toEqual(10);
     });
+
+    it("should return the scenes duration of the show", () => {
+        const show = new Show();
+        const scene1 = new Scene('Torche', 30);
+        const scene2 = new Scene('Torche 2', 30);
+
+        show.addScene(scene1);
+        show.addScene(scene2);
+
+        expect(show.getScenesDuration()).toEqual(60);
+    });
 });

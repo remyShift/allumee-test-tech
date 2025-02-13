@@ -36,4 +36,8 @@ export default class Show {
     getTransitionsDuration() {
         return this.transitions.reduce((acc, item) => acc + item.duration, 0);
     }
+
+    getScenesDuration() {
+        return this.scenes.reduce((acc, item) => acc + item.duration, 0);
+    }
 }
