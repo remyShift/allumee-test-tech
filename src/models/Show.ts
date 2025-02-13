@@ -8,10 +8,11 @@ export default class Show {
     duration: number;
 
     constructor() {
-        this.scenes = [];
+        const defaultScene = new Scene('Update Me', 20);
+        this.scenes = [defaultScene];
         this.transitions = [];
-        this.scenography = [];
-        this.duration = 0;
+        this.scenography = [defaultScene];
+        this.duration = defaultScene.duration;
     }
 
     addScene(newScene: Scene) {

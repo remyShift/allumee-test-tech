@@ -1,4 +1,4 @@
-import ScenographyArray from "@/components/ScenographyArray";
+import ScenographyArray from "@/components/Scenography/ScenographyArray";
 
 export default function Home() {
   return (
