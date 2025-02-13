@@ -37,4 +37,17 @@ describe("Show", () => {
         expect(show.transitions).toEqual([new Transition(scene1.name, scene2.name)]);
         expect(show.events).toEqual([scene1, new Transition(scene1.name, scene2.name), scene2]);
     });
+
+    it("should return the scenography duration, the transitions duration and the scenes duration of the show", () => {
+        const show = new Show();
+        const scene1 = new Scene('Torche', 30);
+        const scene2 = new Scene('Torche 2', 30);
+
+        show.addScene(scene1);
+        show.addScene(scene2);
+
+        expect(show.getScenographyDuration()).toEqual(70);
+        expect(show.getTransitionsDuration()).toEqual(10);
+        expect(show.getScenesDuration()).toEqual(60);
+    });
 });
