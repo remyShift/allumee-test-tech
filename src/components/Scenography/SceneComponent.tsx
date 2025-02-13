@@ -16,7 +16,7 @@ export default function SceneComponent({ scene, isLast, onAdd, onUpdateName, onU
 
     return (
         <div className="flex w-full justify-between items-center p-4">
-            <span className="font-bold">Scene {show.scenography.indexOf(scene) + 1}</span>
+            <span className="text-lg font-bold underline">Scene {show.scenography.filter(item => item instanceof Scene).indexOf(scene) + 1}</span>
             <input 
                 type="text"
                 value={scene.name}
