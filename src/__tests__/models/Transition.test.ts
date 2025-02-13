@@ -23,4 +23,14 @@ describe("Transition", () => {
 
         expect(transition.duration).toBe(10);
     });
+
+    it("should update the duration of the transition", () => {
+        const scene1 = new Scene('Torche', 30);
+        const scene2 = new Scene('Torche 2', 30);
+        const transition = new Transition(scene1.name, scene2.name);
+
+        transition.updateDuration = 20;
+
+        expect(transition.duration).toBe(20);
+    });
 });
