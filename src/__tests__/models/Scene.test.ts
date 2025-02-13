@@ -3,9 +3,11 @@ import Scene from "@/models/Scene";
 describe("Scene", () => {
     let scene: Scene;
 
-    it("should initialize with correct name and duration", () => {
+    beforeEach(() => {
         scene = new Scene('Torche', 30);
+    });
 
+    it("should initialize with correct name and duration", () => {
         expect(scene.name).toBe('Torche');
         expect(scene.duration).toBe(30);
     });
@@ -19,13 +21,11 @@ describe("Scene", () => {
     });
     
     it("should update the name", () => {
-        const scene = new Scene('Torche', 30);
         scene.updateName = 'Torche Toto';
         expect(scene.name).toBe('Torche Toto');
     });
 
     it("should update the duration", () => {
-        const scene = new Scene('Torche', 30);
         scene.updateDuration = 45;
         expect(scene.duration).toBe(45);
     });
