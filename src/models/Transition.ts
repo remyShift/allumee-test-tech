@@ -10,4 +10,8 @@ export default class Transition {
         this.name = `${scene1Name} > ${scene2Name}`;
         this.duration = 10;
     }
+
+    set updateDuration(newDuration: number) {
+        this.duration = newDuration;
+    }
 }
