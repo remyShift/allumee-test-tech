@@ -6,9 +6,11 @@ interface SceneProps {
     scene: Scene;
     isLast: boolean;
     onAdd: () => void;
+    onUpdateName: (newName: string) => void;
+    onUpdateDuration: (newDuration: number) => void;
 }
 
-export default function SceneComponent({ scene, isLast, onAdd }: SceneProps) {
+export default function SceneComponent({ scene, isLast, onAdd, onUpdateName, onUpdateDuration }: SceneProps) {
     const { show } = useShow();
 
     return (
@@ -17,13 +19,13 @@ export default function SceneComponent({ scene, isLast, onAdd }: SceneProps) {
             <input 
                 type="text"
                 value={scene.name}
-                onChange={(e) => scene.updateName = e.target.value}
+                onChange={(e) => onUpdateName(e.target.value)}
                 className="border p-2"
             />
             <input 
                 type="number"
                 value={scene.duration}
-                onChange={(e) => scene.updateDuration = parseInt(e.target.value)}
+                onChange={(e) => onUpdateDuration(parseInt(e.target.value))}
                 className="border p-2 w-24"
             />
             {isLast && (
