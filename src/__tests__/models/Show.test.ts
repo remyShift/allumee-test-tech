@@ -1,3 +1,4 @@
+import Scene from "@/models/Scene";
 import Show from "@/models/Show";
 
 describe("Show", () => {
@@ -8,5 +9,17 @@ describe("Show", () => {
         expect(show.transitions).toEqual([]);
         expect(show.events).toEqual([]);
         expect(show.duration).toEqual(0);
+    });
+
+    it("should add a scene to the show", () => {
+        const show = new Show();
+        const scene = new Scene('Torche', 30);
+
+        show.addScene(scene);
+
+        expect(show.scenes).toEqual([scene]);
+        expect(show.duration).toEqual(30);
+        expect(show.transitions).toEqual([]);
+        expect(show.events).toEqual([scene]);
     });
 });
