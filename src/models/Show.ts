@@ -4,13 +4,13 @@ import Transition from "./Transition";
 export default class Show {
     scenes: Scene[];
     transitions: Transition[];
-    events: (Scene | Transition)[];
+    scenography: (Scene | Transition)[];
     duration: number;
 
     constructor() {
         this.scenes = [];
         this.transitions = [];
-        this.events = [];
+        this.scenography = [];
         this.duration = 0;
     }
 
@@ -20,12 +20,20 @@ export default class Show {
             const transition = new Transition(lastScene.name, newScene.name);
 
             this.transitions.push(transition);
-            this.events.push(transition);
+            this.scenography.push(transition);
             this.duration += transition.duration;
         }
 
         this.scenes.push(newScene);
         this.duration += newScene.duration;
-        this.events.push(newScene);
+        this.scenography.push(newScene);
+    }
+
+    getScenographyDuration() {
+        return this.scenography.reduce((acc, item) => acc + item.duration, 0);
+    }
+
+    getTransitionsDuration() {
+        return this.transitions.reduce((acc, item) => acc + item.duration, 0);
     }
 }
