@@ -4,6 +4,16 @@ export default class Scene {
 
     constructor(name: string, duration: number) {
         this.name = name;
+        if (!name) {
+            throw new Error('Name is required');
+        }
         this.duration = duration;
+        if (duration <= 0) {
+            throw new Error('Duration must be greater than 0');
+        }
+    }
+
+    set updateName(newName: string) {
+        this.name = newName;
     }
 }
