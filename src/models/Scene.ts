@@ -16,4 +16,8 @@ export default class Scene {
     set updateName(newName: string) {
         this.name = newName;
     }
+
+    set updateDuration(newDuration: number) {
+        this.duration = newDuration;
+    }
 }
