@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Scene from '@/models/Scene';
 import { useShow } from '@/context/show';
-import { ButtonAdd } from '../ui/ButtonAdd';
+import { AddBtn } from '../ui/AddBtn';
+import { RemoveBtn } from '../ui/RemoveBtn';
 
 interface SceneProps {
     scene: Scene;
@@ -13,6 +14,14 @@ interface SceneProps {
 
 export default function SceneComponent({ scene, onAdd, onDelete, onUpdateName, onUpdateDuration }: SceneProps) {
     const { show } = useShow();
+    const [isLastScene, setIsLastScene] = useState(false);
+    const [isFirstScene, setIsFirstScene] = useState(false);
+    
+    useEffect(() => {
+        const scenes = show.scenes;
+        setIsLastScene(scenes[scenes.length - 1] === scene);
+        setIsFirstScene(scenes[0] === scene);
+    }, [show, scene]);
 
     return (
         <div className="flex w-full justify-between items-center p-4">
@@ -31,17 +40,14 @@ export default function SceneComponent({ scene, onAdd, onDelete, onUpdateName, o
                 onChange={(e) => onUpdateDuration(parseInt(e.target.value))}
                 className="p-2 text-sm bg-transparent border w-24 rounded-sm"
             />
-            <div className="flex gap-2">
-                <ButtonAdd onClick={onAdd} />
-                <button
-                    onClick={onDelete}
-                    className="p-2 text-red-500 hover:text-red-600 transition-colors"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
-                    </svg>
-                </button>
-            </div>
+            {isLastScene ? (
+                <div className="flex gap-2">
+                    <AddBtn onClick={onAdd} />
+                    {!isFirstScene && <RemoveBtn onClick={onDelete} />}
+                </div>
+            ) : (
+                !isFirstScene && <RemoveBtn onClick={onDelete} />
+            )}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-export const ButtonAdd = ({ onClick }: { onClick: () => void }) => {
+export const AddBtn = ({ onClick }: { onClick: () => void }) => {
     return (
         <button title="Add New" className="group cursor-pointer outline-none hover:rotate-90 duration-300" onClick={onClick}>
             <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" className="stroke-zinc-400 fill-none group-hover:fill-zinc-800 group-active:stroke-zinc-200 group-active:fill-zinc-600 group-active:duration-0 duration-300">
