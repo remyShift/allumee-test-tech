@@ -4,6 +4,7 @@ import { useShow } from '@/context/show';
 import Show from '@/models/Show';
 import Scene from '@/models/Scene';
 import Transition from '@/models/Transition';
+import { useState } from 'react';
 
 interface SceneData {
     name: string;
@@ -17,6 +18,8 @@ interface TransitionData {
 
 export default function ControlButtons() {
     const { show, setShow } = useShow();
+    const [loadStatus, setLoadStatus] = useState('Load');
+    const [saveStatus, setSaveStatus] = useState('Save');
 
     const handleReset = () => {
         setShow(new Show());
@@ -53,6 +56,10 @@ export default function ControlButtons() {
                 });
                 
                 setShow(newShow);
+                setLoadStatus('Loaded');
+                setTimeout(() => {
+                    setLoadStatus('Load');
+                }, 1500);
             });
     };
 
@@ -74,6 +81,11 @@ export default function ControlButtons() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
+        }).then(() => {
+            setSaveStatus('Saved');
+            setTimeout(() => {
+                setSaveStatus('Save');
+            }, 1500);
         });
     };
 
@@ -89,13 +101,13 @@ export default function ControlButtons() {
                 onClick={handleLoad}
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
             >
-                Load
+                {loadStatus}
             </button>
             <button
                 onClick={handleSave}
                 className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md transition-colors"
             >
-                Save
+                {saveStatus}
             </button>
         </div>
     );
