@@ -7,10 +7,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copie des fichiers du backend
-COPY src/backend ./backend
+COPY src/backend /app/backend
 
 # Variables d'environnement
 ENV PORT=8000
+ENV PYTHONPATH=/app
 
 # Exposition du port
 EXPOSE 8000

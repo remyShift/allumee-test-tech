@@ -20,13 +20,14 @@ export default function ControlButtons() {
     const { show, setShow } = useShow();
     const [loadStatus, setLoadStatus] = useState('Load');
     const [saveStatus, setSaveStatus] = useState('Save');
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
     const handleReset = () => {
         setShow(new Show());
     };
 
     const handleLoad = () => {
-        fetch('http://localhost:8000/api/scenography')
+        fetch(`${API_URL}/api/scenography`)
             .then(res => res.json())
             .then(data => {
                 const newShow = new Show();
@@ -75,7 +76,7 @@ export default function ControlButtons() {
             }))
         };
 
-        fetch('http://localhost:8000/api/scenography', {
+        fetch(`${API_URL}/api/scenography`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
