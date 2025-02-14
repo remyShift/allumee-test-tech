@@ -125,3 +125,40 @@ export const updateTransitionDuration = (show: Show, transition: Transition, new
     updatedShow.duration = updatedShow.getScenographyDuration();
     return updatedShow;
 };
+
+export const addSceneAfter = (show: Show, currentScene: Scene) => {
+    const newScene = new Scene('New Scene', 30);
+    const updatedShow = new Show();
+    const currentIndex = show.scenography.indexOf(currentScene);
+    
+    updatedShow.scenes = [...show.scenes];
+    updatedShow.transitions = [...show.transitions];
+    updatedShow.scenography = [...show.scenography];
+    
+    const newTransition = new Transition(currentScene.name, newScene.name);
+    
+    updatedShow.scenes.splice(show.scenes.indexOf(currentScene) + 1, 0, newScene);
+    updatedShow.transitions.push(newTransition);
+    updatedShow.scenography.splice(currentIndex + 1, 0, newTransition, newScene);
+    
+    updatedShow.duration = updatedShow.getScenographyDuration();
+    
+    return updatedShow;
+};
+
+export const deleteScene = (show: Show, sceneToDelete: Scene) => {
+    const updatedShow = new Show();
+    
+    updatedShow.scenes = show.scenes.filter(s => s !== sceneToDelete);
+    updatedShow.transitions = show.transitions.filter(t => 
+        !t.name.includes(sceneToDelete.name)
+    );
+    updatedShow.scenography = show.scenography.filter(item => 
+        item !== sceneToDelete && 
+        !(item instanceof Transition && item.name.includes(sceneToDelete.name))
+    );
+    
+    updatedShow.duration = updatedShow.getScenographyDuration();
+    
+    return updatedShow;
+};

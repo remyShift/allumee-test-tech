@@ -3,17 +3,12 @@
 import { useShow } from '@/context/show';
 import SceneComponent from './SceneComponent';
 import TransitionComponent from './TransitionComponent';
-import { addScene, updateSceneName, updateSceneDuration, updateTransitionDuration } from '@/utils/handleShow';
+import { updateSceneName, updateSceneDuration, updateTransitionDuration, addSceneAfter, deleteScene } from '@/utils/handleShow';
 import Scene from '@/models/Scene';
 import Transition from '@/models/Transition';
 
 export default function ScenographyArray() {
     const { show, setShow } = useShow();
-
-    const handleAddScene = () => {
-        const updatedShow = addScene(show);
-        setShow(updatedShow);
-    };
 
     const handleUpdateSceneName = (scene: Scene, newName: string) => {
         const updatedShow = updateSceneName(show, scene, newName);
@@ -30,6 +25,17 @@ export default function ScenographyArray() {
         setShow(updatedShow);
     };
 
+    const handleAddAfterScene = (scene: Scene) => {
+        const updatedShow = addSceneAfter(show, scene);
+        setShow(updatedShow);
+    };
+
+    const handleDeleteScene = (scene: Scene) => {
+        if (show.scenes.length <= 1) return;
+        const updatedShow = deleteScene(show, scene);
+        setShow(updatedShow);
+    };
+
     return (
         <div className="flex flex-col gap-4 w-full">
             {show.scenography.map((item, index) => (
@@ -37,8 +43,8 @@ export default function ScenographyArray() {
                     {item instanceof Scene ? (
                         <SceneComponent
                             scene={item}
-                            isLast={index === show.scenography.length - 1}
-                            onAdd={handleAddScene}
+                            onAdd={() => handleAddAfterScene(item)}
+                            onDelete={() => handleDeleteScene(item)}
                             onUpdateName={(newName) => handleUpdateSceneName(item, newName)}
                             onUpdateDuration={(newDuration) => handleUpdateSceneDuration(item, newDuration)}
                         />

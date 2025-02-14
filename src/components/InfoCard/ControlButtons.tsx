@@ -41,7 +41,11 @@ export default function ControlButtons() {
                 });
                 
                 data.transitions.forEach((transitionData: TransitionData, index: number) => {
-                    const transition = new Transition(transitionData.name.toString(), transitionData.duration.toString());
+                    const scene1 = newShow.scenes[index];
+                    const scene2 = newShow.scenes[index + 1];
+                    const transition = new Transition(scene1.name, scene2.name);
+                    transition.updateDuration = transitionData.duration;
+                    
                     newShow.transitions.push(transition);
                     const position = (index * 2) + 1;
                     newShow.scenography.splice(position, 0, transition);
